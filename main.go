@@ -29,10 +29,9 @@ func main() {
 	if err != nil {
 			log.Fatal("Ошибка: https сертификат или приватный ключ не найден.")
 		}
-	}
 
 	http.HandleFunc("/", HomeRouterHandler) // установим роутер
-	err := http.ListenAndServeTLS(":9000","cert.pem","key.pem", nil) // задаем слушать порт
+	err = http.ListenAndServeTLS(":9000","cert.pem","key.pem", nil) // задаем слушать порт
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
