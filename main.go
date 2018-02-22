@@ -5,6 +5,7 @@ import (
 	"net/http" // пакет для поддержки HTTP протокола
 	"strings" // пакет для работы с  UTF-8 строками
 	"log" // пакет для логирования
+	"github.com/shvetsovau/simplehttpserver/httpscerts"
 )
 
 func HomeRouterHandler(w http.ResponseWriter, r *http.Request) {
@@ -21,8 +22,17 @@ func HomeRouterHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Проверяем, доступен ли cert файл.
+	err := httpscerts.Check("cert.pem", "key.pem")
+
+	// Если он недоступен, то генерируем новый.
+	if err != nil {
+			log.Fatal("Ошибка: https сертификат или приватный ключ не найден.")
+		}
+	}
+
 	http.HandleFunc("/", HomeRouterHandler) // установим роутер
-	err := http.ListenAndServe(":9000", nil) // задаем слушать порт
+	err := http.ListenAndServeTLS(":9000","cert.pem","key.pem", nil) // задаем слушать порт
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
