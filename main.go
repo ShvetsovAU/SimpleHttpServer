@@ -31,7 +31,7 @@ func main() {
 		}
 
 	http.HandleFunc("/", HomeRouterHandler) // установим роутер
-	err = http.ListenAndServeTLS("localhost:9000","cert.pem","key.pem", nil) // задаем слушать порт
+	err = http.ListenAndServeTLS(":9000","cert.pem","key.pem", nil) // задаем слушать порт
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
