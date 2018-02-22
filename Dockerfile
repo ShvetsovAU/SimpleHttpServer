@@ -4,7 +4,7 @@ ADD . $GOPATH/src/github.com/shvetsovau/SimpleHttpServer
 ADD cert.pem /go/bin/cert.pem
 ADD key.pem /go/bin/key.pem
 
-RUN go get
+RUN go get github.com/shvetsovau/SimpleHttpServer
 
 RUN go install github.com/shvetsovau/SimpleHttpServer
 
